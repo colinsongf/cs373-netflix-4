@@ -4,7 +4,11 @@ process through given files to produce cache docs
 """
 import sys
 
-f = open('movie_titles.txt', 'r')
+userAvgRatings = {};
+
+f = open('mv_0002043.txt', 'r')
 for line in f:
-  print line,
-  
+  if line.find(':') != -1:
+    print line
+  else:
+    print [x.strip() for x in line.split(',')]
