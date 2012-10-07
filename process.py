@@ -10,8 +10,9 @@ numOfMovies = 0
 
 #training = open('mv_0002043.txt', 'r')
 movies = open('movie_titles.txt','r')
-users = open('defUsers.txt','w')
-ratings = open('defRatings.txt', 'w')
+users = open('defUserRatings.txt','w')
+ratings = open('defMovieRatings.txt', 'w')
+userRatings = []
 
 """
 Reads the training data file and assigns the given rating as
@@ -36,19 +37,31 @@ def ProcessTraining():
         if line.find(':') == -1:
           numOfRatings += 1
           row = [x.strip() for x in line.split(',')]
+          ProcessUser(row[0],row[1]);
           totalRatings += int(row[1]) 
       avgRating = totalRatings/numOfRatings
       totalAverage += avgRating
       ratings.write(movieId.rstrip(':')+","+str(avgRating)+"\n")
   totalAverage /= 17770
+  ratings.write(':'+str(totalAverage));
+  writeUsers()
 
 
 """
-Reads the movie data file and writes the average rating calculated
-previously as the default rating for all movies. Outpust to defRatings.txt.
-
-def ProcessMovies():
-  for line in movies:
-    row = [x.strip() for x in line.split(',')]
-    ratings.write(row[0]+","+str(avgRating)+","+row[1]+"\n")
+Checks for user in userRatings, if not found appends. Used for calculating 
+averages of specific users
 """
+def ProcessUser(user,rating):
+  for i in userRatings:
+    if(i[0] == user):
+      i[1] += rating
+      i[2] += 1                                  
+      break
+  else:
+    userRatings.append([int(user),int(rating),1.0])
+
+def writeUsers():
+  avg = 0.0
+  for i in userRatings:
+    avg = i[1]/i[2]
+    users.write(str(i[0])+","+str(avg)+"\n")
