@@ -24,24 +24,31 @@ def ProcessTraining():
   numOfRatings = 0
   totalRatings = 0.0
   avgRating = 0.0
+  numOfMovies = 0
+  totalAverage = 0.0
+  movieId = ""
   for filename in sys.argv[1:]:
+    numOfMovies += 1
     with open(filename) as training:
       for line in training:
+        if line.find(':') != -1:
+          movieId = line.strip()
         if line.find(':') == -1:
           numOfRatings += 1
           row = [x.strip() for x in line.split(',')]
-          print row[0]+","+row[1]
-          users.write(row[0]+","+row[1]+"\n")
-          #totalRatings += int(row[1])  
-  avgRating = totalRatings/numOfRatings
+          totalRatings += int(row[1]) 
+      avgRating = totalRatings/numOfRatings
+      totalAverage += avgRating
+      ratings.write(movieId.rstrip(':')+","+str(avgRating)+"\n")
+  totalAverage /= 17770
 
 
 """
 Reads the movie data file and writes the average rating calculated
 previously as the default rating for all movies. Outpust to defRatings.txt.
-"""
+
 def ProcessMovies():
   for line in movies:
     row = [x.strip() for x in line.split(',')]
     ratings.write(row[0]+","+str(avgRating)+","+row[1]+"\n")
-
+"""
