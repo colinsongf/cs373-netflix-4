@@ -3,7 +3,7 @@
 # ------------------------------
 # projects/Netflix/RunNetflix.py
 # Copyright (C) 2012
-# Thomas Preli & Newman Willis
+# Darby Perez & Newman Willis
 # -------------------------------
 
 """
@@ -22,10 +22,10 @@ To document the program
 
 import sys
 
-from Netflix import Netflix_solve
+from Netflix import CreateCache
 
 # ----
 # main
 # ----
 
-Netlix_solve(sys.stdin, sys.stdout)
+CreateCache()
