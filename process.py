@@ -30,8 +30,9 @@ def ProcessTraining():
         if line.find(':') == -1:
           numOfRatings += 1
           row = [x.strip() for x in line.split(',')]
+          print row[0]+","+row[1]
           users.write(row[0]+","+row[1]+"\n")
-          totalRatings += int(row[1])  
+          #totalRatings += int(row[1])  
   avgRating = totalRatings/numOfRatings
 
 
