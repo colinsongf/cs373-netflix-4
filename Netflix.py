@@ -39,17 +39,23 @@ def PredictRating(user, movie):
   if user in users:
     userRating = user[user]
   else:
+    #set default rating for small test cases
+    #userRating = 3.77
     userRating = avgRating
+  #def movie rating purely for testing read
   movieRating = movies[movie-1]
-  return (movieRating + userRating) / 2.0
+  #movieRating = 3.6672
+  return float((movieRating + userRating) / 2.0)
 
 def Netflix(r,w):
   movie = 0
   for line in r:
     if line.find(':') != -1:
       movie = int(line[:-2])
-      #ratings.append(str(movie)+":")
+      ratings.append(str(movie)+":")
       print str(movie)+":"
     else:
-      #ratings.append(PredictRating(int(line[:-1]),movie))
-      print PredictRating(int(line[:-1]),movie)      
+      ratings.append(PredictRating(int(line[:-1]),movie))
+      #print PredictRating(int(line[:-1]),movie)
+  print ratings
+  #RMS(ratings)
