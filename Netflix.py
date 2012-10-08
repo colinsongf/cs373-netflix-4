@@ -19,6 +19,7 @@ def CreateCache(userFile, movieFile):
   movieRatings = open(movieFile, 'r')
   for line in userRatings:
     row = [x.strip() for x in line.split(',')]
+    #print row
     users[row[0]] = float(row[1])  
   for line in movieRatings:
     if line.find(':') != -1:
@@ -26,7 +27,7 @@ def CreateCache(userFile, movieFile):
       avgRating = float(line.lstrip(':'))
     else: 
       row = [x.strip() for x in line.split(',')]
-      movies[int(row[0])] = float(row[1])
+      movies[int(row[0])-1] = float(row[1])
 
 """
 method for predicting the data
