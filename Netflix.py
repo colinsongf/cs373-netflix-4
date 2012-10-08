@@ -6,17 +6,20 @@
 # Darby Perez & Newman Willis
 # ---------------------------
 
-users = []
-movies = []
+users = {}
+movies = [0]*17770
 avgRating = 0.0
+ratings = []
 
-userRatings = open('defUserRatings.txt','r')
-movieRatings = open('defMovieRatings.txt', 'r')
-
-def CreateCache():
+"""
+creates the cache for predicting the data from the stored 
+"""
+def CreateCache(userFile, movieFile):
+  userRatings = open(userFile,'r')
+  movieRatings = open(movieFile, 'r')
   for line in userRatings:
     row = [x.strip() for x in line.split(',')]
-    users.append([int(row[0]), float(row[1])])
+    users[row[0]] = float(row[1])
   print users  
   for line in movieRatings:
     if line.find(':') != -1:
@@ -24,18 +27,39 @@ def CreateCache():
       avgRating = float(line.lstrip(':'))
     else: 
       row = [x.strip() for x in line.split(',')]
-      movies.append(float(row[1]))
-  print movies
-  
+      movies[int(row[0])] = float(row[1])
+  print avgRating
+
+"""
+method for predicting the data
+currently implements a generic way to predict rating. Averages the movies
+average rating and the users average rating.
+"""
 def PredictRating(user, movie):
   userRating = 0.0
   movieRating = 0.0
+  """ SOO SLOW
   for i in users:
     if i[0] == user:
       userRating = i[1]
       break;
+      """
+  if user in users:
+    userRating = user[user]
   else:
     userRating = avgRating
-  finally:
-    movieRating = movies[movie]    
+  movieRating = movies[movie-1]
   return (movieRating + userRating) / 2.0
+
+def Netflix(r,w):
+  movie = 0
+  for line in r:
+    if line.find(':') != -1:
+      #print line[:-2]
+      movie = int(line[:-2])
+      #print str(movie)
+    else:
+      #print line[:-1]
+      print PredictRating(int(line[:-1]),movie)
+  #print movies
+      

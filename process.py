@@ -30,6 +30,7 @@ def ProcessTraining():
   movieId = ""
   for filename in sys.argv[1:]:
     numOfMovies += 1
+    print filename
     with open(filename) as training:
       for line in training:
         if line.find(':') != -1:

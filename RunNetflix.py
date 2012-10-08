@@ -22,10 +22,13 @@ To document the program
 
 import sys
 
-from Netflix import CreateCache
+from Netflix import CreateCache, Netflix
 
+movieRatings = 'defMovieRatings.txt'
+userRatings = 'defUserRatings.txt'
 # ----
 # main
 # ----
 
-CreateCache()
+CreateCache(userRatings,movieRatings)
+Netflix(sys.stdin, sys.stdout)
