@@ -29,6 +29,7 @@ def CreateCache(userFile, movieFile):
       row = [x.strip() for x in line.split(',')]
       movies[int(row[0])-1] = float(row[1])
 
+
 """
 method for predicting the data
 currently implements a generic way to predict rating. Averages the movies
@@ -60,3 +61,9 @@ def Netflix(r,w):
       #print PredictRating(int(line[:-1]),movie)
   print ratings
   #RMS(ratings)
+
+def getMovies():
+    return movies
+    
+def getUsers(): 
+    return users   
