@@ -25,99 +25,80 @@ To test the program:
 import StringIO
 import unittest
 
-from Netflix import Netflix_read_parameters, Netflix_read_node, Netflix_no_prereqs, Netflix_remove_tasks, Netflix_eval, Netflix_print, Netflix_solve
+from Netflix import CreateCache, PredictRating, Netflix, getUsers, getMovies 
 
 # -----------
 # TestNetflix
 # -----------
 
 class TestNetflix (unittest.TestCase) :
-    # ----
-    # read_parameters
-    # ----
 
-    def test_read_parameters_1 (self) :
-        r = StringIO.StringIO("1 10\n")
-        a = [0, 0]
-        b = Netflix_read_parameters(r, a)
-        self.assert_(b    == True)
-        self.assert_(a[0] ==  1)
-        self.assert_(a[1] == 10)
-
-        
-    # ----    
-    # read_node    
     # ----
-        
-    def test_read_node_1 (self) :
-        r = StringIO.StringIO("3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n")
-        a = [5, 4]
-        cache = [[0 for x in xrange(a[0] + 1)] for x in xrange(a[0] + 1)]
-        Netflix_read_node(r, a, cache)
-        self.assert_(cache[3][1] == 1)
-        self.assert_(cache[3][5] == 1)
-        self.assert_(cache[2][5] == 1)
-        self.assert_(cache[2][3] == 1)
-        self.assert_(cache[4][3] == 1)
-        self.assert_(cache[5][1] == 1)
-
-        
-    # ----
-    # no_prereqs
+    # CreateCache
     # ----
     
-    def test_no_prereqs_1 (self) :
-        cache = [[0 for x in xrange(6)] for x in xrange(6)]
-        v = Netflix_no_prereqs(1, 5, cache)
-        self.assert_(v)             
- 
+    def test_CreateCache_1(self):
+        CreateCache('zUserTest1.txt','zMovieTest1.txt')
+        testUsers = getUsers()
+        prototypeMovies = getMovies()
+        testMovies = [0] * 2
+        testMovies[0] = prototypeMovies[0]
+        testMovies[1] = prototypeMovies[1]
+        actualUsers = {'1' : 5.0, '2': 3.0}
+        actualMovies = [5.0, 1.0]
+        self.assert_(testUsers == actualUsers)
+        self.assert_(testMovies == actualMovies)
         
+    def test_CreateCache_2(self):
+        CreateCache('zUserTest2.txt','zMovieTest2.txt')
+        testUsers = getUsers()
+        prototypeMovies = getMovies()
+        testMovies = [0] * 4
+        testMovies[0] = prototypeMovies[0]
+        testMovies[1] = prototypeMovies[1]
+        testMovies[2] = prototypeMovies[2]
+        testMovies[3] = prototypeMovies[3]
+        actualUsers = {'1' : 5.0, '10034': 4.1546, '2': 3.0, '8901267': 3.787}
+        actualMovies = [3.777, 2.5, 4.187976, 3.9823]
+        self.assert_(testUsers == actualUsers)
+        self.assert_(testMovies == actualMovies)
+        
+    def test_CreateCache_3(self):
+        CreateCache('zUserTest3.txt','zMovieTest3.txt')
+        testUsers = getUsers()
+        prototypeMovies = getMovies()
+        testMovies = [0] * 4
+        testMovies[0] = prototypeMovies[0]
+        testMovies[1] = prototypeMovies[1]
+        testMovies[2] = prototypeMovies[2]
+        testMovies[3] = prototypeMovies[3]
+        actualUsers = {'1' : 5.0, '10034': 4.1546, '2': 3.0, '8901267': 3.787}
+        actualMovies = [3.777, 2.5, 4.187976, 3.9823]
+        self.assert_(testUsers == actualUsers)
+        self.assert_(testMovies == actualMovies)
+
     # ----
-    # remove_tasks
+    # PredictRating
     # ----
+            
+    def test_PredictRating_1(self):
+        userRating = 3.15
+        movieRating = 3.65
+        testRating = 0.0
+        testRating = PredictRating(userRating, movieRating)
+        actualRating = 3.4;
+        self.assert_(testRating == actualRating)
+       
+    # ----
+    # Netflix
+    # ----        
+    ''' 
+    def test_Netflix_1(self):
+        
+        b = Netflix()
+        
+    '''
     
-    def test_remove_tasks_1 (self) :
-        cache = [[0 for x in xrange(6)] for x in xrange(6)]
-        Netflix_remove_tasks(1, 5, cache)
-        self.assert_(cache[1][1] == 0)
-        self.assert_(cache[2][1] == 0)
-        self.assert_(cache[3][1] == 0)
-        self.assert_(cache[4][1] == 0)
-        self.assert_(cache[5][1] == 0)           
-        
-    # ----
-    # eval
-    # ----
-
-    def test_eval_1 (self) :
-        r = StringIO.StringIO("3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n")
-        a = [5, 4]
-        cache = [[0 for x in xrange(a[0] + 1)] for x in xrange(a[0] + 1)]
-        Netflix_read_node(r, a, cache)
-        v = Netflix_eval(a[0], cache)
-        self.assert_(v[0] == 1)
-        self.assert_(v[1] == 5)
-        self.assert_(v[2] == 3)
-        self.assert_(v[3] == 2)
-        self.assert_(v[4] == 4)
-
-    # -----
-    # print
-    # -----
-
-    def test_print_1 (self) :
-        w = StringIO.StringIO()
-        Netflix_print(w, (1, 3, 4, 5, 2))
-        self.assert_(w.getvalue() == "1 3 4 5 2\n")
-    # -----
-    # solve
-    # -----
-
-    def test_solve_1 (self) :
-        r = StringIO.StringIO("5 4\n3 2 1 5\n2 2 5 3\n4 1 3\n5 1 1\n")
-        w = StringIO.StringIO()
-        Netflix_solve(r, w)
-        self.assert_(w.getvalue() == "1 5 3 2 4\n")
 # ----
 # main
 # ----
