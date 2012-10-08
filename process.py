@@ -5,14 +5,14 @@ Average user rating 3.7
 """
 import sys
 
-userAvgRatings = {}
+userAvgRatings = []
 numOfMovies = 0
 
 #training = open('mv_0002043.txt', 'r')
 movies = open('movie_titles.txt','r')
 users = open('defUserRatings.txt','w')
 ratings = open('defMovieRatings.txt', 'w')
-userRatings = []
+userRatings = {}
 
 """
 Reads the training data file and assigns the given rating as
@@ -53,16 +53,14 @@ Checks for user in userRatings, if not found appends. Used for calculating
 averages of specific users
 """
 def ProcessUser(user,rating):
-  for i in userRatings:
-    if(i[0] == user):
-      i[1] += rating
-      i[2] += 1                                  
-      break
+  if user in userRatings:
+    userRatings[user][0] += float(rating)
+    userRatings[user][1] += 1.0
   else:
-    userRatings.append([int(user),int(rating),1.0])
+    userRatings[user] = [float(rating), 1.0]
 
 def writeUsers():
   avg = 0.0
   for i in userRatings:
-    avg = i[1]/i[2]
-    users.write(str(i[0])+","+str(avg)+"\n")
+    avg = float(userRatings[i][0])/userRatings[i][1]
+    users.write(str(i)+","+str(avg)+"\n")
