@@ -21,6 +21,7 @@ To document the program
 # -------
 
 import sys
+import math
 
 from Netflix import CreateCache, Netflix
 

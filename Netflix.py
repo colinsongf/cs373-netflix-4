@@ -6,6 +6,8 @@
 # Darby Perez & Newman Willis
 # ---------------------------
 
+import math
+
 users = {}
 movies = [0]*17770
 avgRating = 0.0
@@ -19,15 +21,15 @@ def CreateCache(userFile, movieFile):
   movieRatings = open(movieFile, 'r')
   for line in userRatings:
     row = [x.strip() for x in line.split(',')]
-    #print row
-    users[row[0]] = float(row[1])  
+    users[row[0]] = round(float(row[1]),2)
   for line in movieRatings:
     if line.find(':') != -1:
       line.strip() 
-      avgRating = float(line.lstrip(':'))
+      avgRating = round(float(line.lstrip(':')),2)
     else: 
       row = [x.strip() for x in line.split(',')]
-      movies[int(row[0])-1] = float(row[1])
+      movies[int(row[0])-1] = round(float(row[1]),2)
+  #print avgRating
 
 """
 method for predicting the data
@@ -38,25 +40,38 @@ def PredictRating(user, movie):
   userRating = 0.0
   movieRating = 0.0
   if user in users:
-    userRating = user[user]
+    userRating = users[user]
   else:
-    #set default rating for small test cases
-    #userRating = 3.77
     userRating = avgRating
-  #def movie rating purely for testing read
   movieRating = movies[movie-1]
-  #movieRating = 3.6672
   return float((movieRating + userRating) / 2.0)
 
 def Netflix(r,w):
   movie = 0
+  results = ""
   for line in r:
     if line.find(':') != -1:
       movie = int(line[:-2])
-      ratings.append(str(movie)+":")
-      print str(movie)+":"
+      results += line
     else:
-      ratings.append(PredictRating(int(line[:-1]),movie))
-      #print PredictRating(int(line[:-1]),movie)
-  print ratings
-  #RMS(ratings)
+      rating = PredictRating(line[:-1],movie)
+      results += str(rating)+"\n"
+      ratings.append(rating)
+  rmse = RMSE(open("probeAnswers.txt"),ratings)
+  #print rmse
+  #print results.strip()
+  print str(rmse)+"\n"+results.strip()
+  
+def sqre_diff (x, y) :
+  return (x - y) ** 2
+
+def RMSE(probeAns, ratings):
+  probeAnswers = []
+  for line in probeAns:
+    if line.find(':') == -1:
+      #print line[:-1]
+      probeAnswers.append(float(line[:-1]))
+  #print probeAnswers
+  s = len(probeAnswers)
+  v = sum(map(sqre_diff, probeAnswers, ratings), 0.0)
+  return math.sqrt(v / s)
