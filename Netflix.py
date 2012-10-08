@@ -19,8 +19,7 @@ def CreateCache(userFile, movieFile):
   movieRatings = open(movieFile, 'r')
   for line in userRatings:
     row = [x.strip() for x in line.split(',')]
-    users[row[0]] = float(row[1])
-  print users  
+    users[row[0]] = float(row[1])  
   for line in movieRatings:
     if line.find(':') != -1:
       line.strip() 
@@ -28,7 +27,6 @@ def CreateCache(userFile, movieFile):
     else: 
       row = [x.strip() for x in line.split(',')]
       movies[int(row[0])] = float(row[1])
-  print avgRating
 
 """
 method for predicting the data
@@ -38,12 +36,6 @@ average rating and the users average rating.
 def PredictRating(user, movie):
   userRating = 0.0
   movieRating = 0.0
-  """ SOO SLOW
-  for i in users:
-    if i[0] == user:
-      userRating = i[1]
-      break;
-      """
   if user in users:
     userRating = user[user]
   else:
@@ -55,11 +47,9 @@ def Netflix(r,w):
   movie = 0
   for line in r:
     if line.find(':') != -1:
-      #print line[:-2]
       movie = int(line[:-2])
-      #print str(movie)
+      #ratings.append(str(movie)+":")
+      print str(movie)+":"
     else:
-      #print line[:-1]
-      print PredictRating(int(line[:-1]),movie)
-  #print movies
-      
+      #ratings.append(PredictRating(int(line[:-1]),movie))
+      print PredictRating(int(line[:-1]),movie)      
