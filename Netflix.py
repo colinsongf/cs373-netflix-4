@@ -81,6 +81,8 @@ def findRatings(movieTitle):
 	filename = "mv_00"
 	movieTitle
 """ 
+
+#simple functions to help with testing  
 def getMovies():
     return movies
     
