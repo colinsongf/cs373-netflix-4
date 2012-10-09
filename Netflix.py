@@ -73,9 +73,14 @@ def RMSE(probeAns, ratings):
       probeAnswers.append(float(line[:-1]))
   #print probeAnswers
   s = len(probeAnswers)
-  v = sum(map(sqre_diff, probeAnswers, ratings), 0.0)
+  v = sum(map(sqre_diff, probeAns, ratings), 0.0)
   return math.sqrt(v / s)
-  
+
+"""
+def findRatings(movieTitle):
+	filename = "mv_00"
+	movieTitle
+""" 
 def getMovies():
     return movies
     
