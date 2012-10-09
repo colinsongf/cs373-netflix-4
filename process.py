@@ -12,7 +12,18 @@ numOfMovies = 0
 movies = open('movie_titles.txt','r')
 users = open('defUserRatings.txt','w')
 ratings = open('defMovieRatings.txt', 'w')
+probeAnswers = open('probeAnswers.txt','w')
 userRatings = {}
+
+def findRatings(movieTitle):
+	fileName = "mv_00"+"0"*(5-movieTitle.__len__())+movieTitle+".txt"
+	fileDir = "/u/downing/cs/netflix/training_set/"+fileName
+	trainingFile = open(fileDir,'r')
+	#print fileName
+	for line in trainingFile:
+		if line.find(':') == -1:
+			row = [x.strip() for x in line.split(',')]
+			retrievedDict[row[0]] = float(row[1])
 
 """
 Reads the training data file and assigns the given rating as
@@ -39,6 +50,7 @@ def ProcessTraining():
           numOfRatings += 1
           row = [x.strip() for x in line.split(',')]
           ProcessUser(row[0],row[1]);
+          probeAnswers.write(row[1]+"\n")
           totalRatings += int(row[1]) 
       avgRating = totalRatings/numOfRatings
       totalAverage += avgRating
@@ -46,7 +58,6 @@ def ProcessTraining():
   totalAverage /= 17770
   ratings.write(':'+str(totalAverage));
   writeUsers()
-
 
 """
 Checks for user in userRatings, if not found appends. Used for calculating 
@@ -64,3 +75,26 @@ def writeUsers():
   for i in userRatings:
     avg = float(userRatings[i][0])/userRatings[i][1]
     users.write(str(i)+","+str(avg)+"\n")
+    
+def findRatings(movieTitle, answersFile):
+	fileName = "mv_00"+"0"*(5-movieTitle.__len__())+movieTitle+".txt"
+	fileDir = "/u/downing/cs/netflix/training_set/"+fileName
+	trainingFile = open(fileDir,'r')
+	#print fileName
+	for line in trainingFile:
+		if line.find(':') == -1:
+			row = [x.strip() for x in line.split(',')]
+			#retrievedDict[row[0]] = float(row[1])
+			answersFile.write(row[1]+"\n")
+			
+			
+def getProbeAnswers():
+	probe = open('probe.txt', 'r')
+	probeAnswers = open('probeAnswers.txt','w')
+	for line in probe:
+		if line.find(':') != -1:
+			findRatings(line[:-2], probeAnswers)
+			
+			
+			
+		
