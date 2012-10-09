@@ -100,7 +100,7 @@ class TestNetflix (unittest.TestCase) :
         movieID = 1
         testRating = PredictRating(userID, movieID)
         print testRating
-        actualRating = 1.89; #because of so many unrated movies due to 17770 movies total
+        actualRating = 1.89; #because of so many unrated movies due to 17770 movies total, avgrating = 0
         self.assert_(testRating == actualRating)
        
     # ----
@@ -114,12 +114,8 @@ class TestNetflix (unittest.TestCase) :
     # ----
     # RMSE
     # ----  
-        
-    def test_RMSE(self):
-    
-        b = RMSE()
-        
-    
+   
+
 # ----
 # main
 # ----
