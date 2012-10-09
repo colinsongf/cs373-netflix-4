@@ -58,8 +58,8 @@ class TestNetflix (unittest.TestCase) :
         testMovies[1] = prototypeMovies[1]
         testMovies[2] = prototypeMovies[2]
         testMovies[3] = prototypeMovies[3]
-        actualUsers = {'1' : 5.0, '10034': 4.1546, '2': 3.0, '8901267': 3.787}
-        actualMovies = [3.777, 2.5, 4.187976, 3.9823]
+        actualUsers = {'1' : 5.0, '10034': 4.15, '2': 3.0, '8901267': 3.79}
+        actualMovies = [3.78, 2.5, 4.19, 3.98]
         self.assert_(testUsers == actualUsers)
         self.assert_(testMovies == actualMovies)
         
@@ -72,8 +72,8 @@ class TestNetflix (unittest.TestCase) :
         testMovies[1] = prototypeMovies[1]
         testMovies[2] = prototypeMovies[2]
         testMovies[3] = prototypeMovies[3]
-        actualUsers = {'1' : 5.0, '10034': 4.1546, '2': 3.0, '8901267': 3.787}
-        actualMovies = [3.777, 2.5, 4.187976, 3.9823]
+        actualUsers = {'1' : 5.0, '10034': 4.15, '2': 3.0, '8901267': 3.79}
+        actualMovies = [3.78, 2.5, 4.19, 3.98]
         self.assert_(testUsers == actualUsers)
         self.assert_(testMovies == actualMovies)
 
@@ -82,11 +82,25 @@ class TestNetflix (unittest.TestCase) :
     # ----
             
     def test_PredictRating_1(self):
-        userRating = 3.15
-        movieRating = 3.65
-        testRating = 0.0
-        testRating = PredictRating(userRating, movieRating)
-        actualRating = 3.4;
+        userID = '1'
+        movieID = 2
+        testRating = PredictRating(userID, movieID)
+        actualRating = 3.75;
+        self.assert_(testRating == actualRating)
+        
+    def test_PredictRating_2(self):
+        userID = '10034'
+        movieID = 3
+        testRating = PredictRating(userID, movieID)
+        actualRating = 4.17;
+        self.assert_(testRating == actualRating)
+        
+    def test_PredictRating_3(self):
+        userID = '17'
+        movieID = 1
+        testRating = PredictRating(userID, movieID)
+        print testRating
+        actualRating = 1.89; #because of so many unrated movies due to 17770 movies total
         self.assert_(testRating == actualRating)
        
     # ----
@@ -96,8 +110,15 @@ class TestNetflix (unittest.TestCase) :
     def test_Netflix_1(self):
         
         b = Netflix()
+    '''    
+    # ----
+    # RMSE
+    # ----  
         
-    '''
+    def test_RMSE(self):
+    
+        b = RMSE()
+        
     
 # ----
 # main

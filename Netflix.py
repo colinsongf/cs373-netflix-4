@@ -75,7 +75,8 @@ def RMSE(probeAns, ratings):
   s = len(probeAnswers)
   v = sum(map(sqre_diff, probeAnswers, ratings), 0.0)
   return math.sqrt(v / s)
-  
+
+#simple functions to help with testing  
 def getMovies():
     return movies
     
