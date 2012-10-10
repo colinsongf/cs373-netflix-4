@@ -19,7 +19,7 @@ moviesByYear = {}
 """
 creates the cache for predicting the data from the stored 
 """
-def CreateCache(userFile, movieFile, yearRatings, movieInfo):
+def CreateCache(userFile, movieFile, yearRatings):
   userRatings = open(userFile,'r')
   movieRatings = open(movieFile, 'r')
   ratingsByYear = open(yearRatings,'r')

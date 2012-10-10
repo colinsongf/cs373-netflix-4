@@ -46,6 +46,7 @@ class TestNetflix (unittest.TestCase) :
         testMovies[1] = prototypeMovies[1]
         actualUsers = {'1' : 5.0, '2': 3.0}
         actualMovies = [5.0, 1.0]
+        print testMovies
         self.assert_(testUsers == actualUsers)
         self.assert_(testMovies == actualMovies)
         
