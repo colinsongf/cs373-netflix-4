@@ -8,15 +8,16 @@ import sys
 userAvgRatings = []
 numOfMovies = 0
 
-#training = open('mv_0002043.txt', 'r')
 movies = open('movie_titles.txt','r')
 probe = open('probe.txt', 'r')
 users = open('defUserRatings.txt','w')
 ratings = open('defMovieRatings.txt', 'w')
 probeAnswers = open('probeAnswers.txt','w')
+movieRatingsByYear = open('movieRatingsByYear.txt','w')
 retrievedDict = {}
 userRatings = {}
 movieDict = {}
+movieYears = {}
 
 def findRatings(movieTitle):
 	fileName = "mv_00"+"0"*(5-movieTitle.__len__())+movieTitle+".txt"
@@ -91,9 +92,29 @@ def ProcessProbe():
       probeAnswers.write(str(retrievedDict[line.strip()])+"\n")
       
 def ProcessMovies():
+  i = 0
   for line in movies:
     row = [x.strip() for x in line.split(',')]
     movieDict[row[0]] = row[1]
-    
+
 def ProcessMovieYears():
-  print movieDict
+  for i in range(1890, 2010, 5):
+    movieYears[i] = [0,0]
+  ratings = open('defMovieRatings.txt', 'r')
+  for line in ratings:
+    if line.find(":") == -1:
+      row = [x.strip() for x in line.split(',')]
+     # print row
+      if movieDict[row[0]].find('NULL') == -1:
+        yearDiff = int(movieDict[row[0]]) % 5
+        yearKey = int(movieDict[row[0]]) - yearDiff
+        #add rating to designated year range
+        movieYears[yearKey][0] += float(row[1])
+        #inc num of ratings for year range
+        movieYears[yearKey][1] += 1
+  for i in movieYears:
+    average = 0.0
+    #divide by zero check
+    if (movieYears[i][1] != 0.0):
+      average = movieYears[i][0]/movieYears[i][1]
+    movieRatingsByYear.write(str(i)+","+str(average)+"\n")
