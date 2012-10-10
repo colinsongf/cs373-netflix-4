@@ -8,6 +8,7 @@ import sys
 userAvgRatings = []
 numOfMovies = 0
 
+#training = open('mv_0002043.txt', 'r')
 movies = open('movie_titles.txt','r')
 probe = open('probe.txt', 'r')
 users = open('defUserRatings.txt','w')
@@ -18,6 +19,8 @@ retrievedDict = {}
 userRatings = {}
 movieDict = {}
 movieYears = {}
+
+
 
 def findRatings(movieTitle):
 	fileName = "mv_00"+"0"*(5-movieTitle.__len__())+movieTitle+".txt"
@@ -60,7 +63,7 @@ def ProcessTraining():
           totalRatings += int(row[1]) 
       avgRating = totalRatings/numOfRatings
       totalAverage += avgRating
-      ratings.write(movieId.rstrip(':')+","+str(avgRating)+"\n")
+      ratings.write(movieId.rstrip(':')+","+str(avgRating)+","+movieDict[movieId.rstrip(':')]"\n")
   totalAverage /= 17770
   ratings.write(':'+str(totalAverage));
   writeUsers()
@@ -95,7 +98,7 @@ def ProcessMovies():
   i = 0
   for line in movies:
     row = [x.strip() for x in line.split(',')]
-    movieDict[row[0]] = row[1]
+    movieDict[row[0]] = row[1]    
 
 def ProcessMovieYears():
   for i in range(1890, 2010, 5):
