@@ -16,6 +16,7 @@ ratings = open('defMovieRatings.txt', 'w')
 probeAnswers = open('probeAnswers.txt','w')
 retrievedDict = {}
 userRatings = {}
+movieDict = {}
 
 def findRatings(movieTitle):
 	fileName = "mv_00"+"0"*(5-movieTitle.__len__())+movieTitle+".txt"
@@ -27,6 +28,9 @@ def findRatings(movieTitle):
 			row = [x.strip() for x in line.split(',')]
 			retrievedDict[row[0]] = float(row[1])
 	#print retrievedDict
+
+def getYear(movieID):
+  return movieDict[movieID]
 """
 Reads the training data file and assigns the given rating as
 the default rating for the given users. Then calculates the average
@@ -52,7 +56,6 @@ def ProcessTraining():
           numOfRatings += 1
           row = [x.strip() for x in line.split(',')]
           ProcessUser(row[0],row[1]);
-          #probeAnswers.write(row[1]+"\n")
           totalRatings += int(row[1]) 
       avgRating = totalRatings/numOfRatings
       totalAverage += avgRating
@@ -86,3 +89,11 @@ def ProcessProbe():
     else:
       #print str(line.strip())
       probeAnswers.write(str(retrievedDict[line.strip()])+"\n")
+      
+def ProcessMovies():
+  for line in movies:
+    row = [x.strip() for x in line.split(',')]
+    movieDict[row[0]] = row[1]
+    
+def ProcessMovieYears():
+  print movieDict
