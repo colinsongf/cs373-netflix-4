@@ -23,15 +23,14 @@ def CreateCache(userFile, movieFile):
   movieRatings = open(movieFile, 'r')
   for line in userRatings:
     row = [x.strip() for x in line.split(',')]
-    users[row[0]] = round(float(row[1]),2)
+    users[row[0]] = float(row[1])
   for line in movieRatings:
     if line.find(':') != -1:
       line.strip() 
-      avgRating = round(float(line.lstrip(':')),2)
+      avgRating = float(line.lstrip(':'))
     else: 
       row = [x.strip() for x in line.split(',')]
-      movies[int(row[0])-1] = round(float(row[1]),2)
-  #print avgRating
+      movies[int(row[0])-1] = float(row[1])
 
 """
 method for predicting the data
@@ -61,7 +60,6 @@ def Netflix(r,w):
       rating = PredictRating(line[:-1],movie)
       results += str(rating)+"\n"
       ratings.append(rating)
-  #rmse = RMSE(open("probeAnswers.txt"),ratings)
   print results.strip()
 
 #simple functions to help with testing  
