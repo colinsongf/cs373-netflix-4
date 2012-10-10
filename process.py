@@ -21,12 +21,12 @@ def findRatings(movieTitle):
 	fileName = "mv_00"+"0"*(5-movieTitle.__len__())+movieTitle+".txt"
 	fileDir = "/u/downing/cs/netflix/training_set/"+fileName
 	trainingFile = open(fileDir,'r')
-	print fileName
+	print "finding ratings for: "+fileName
 	for line in trainingFile:
 		if line.find(':') == -1:
 			row = [x.strip() for x in line.split(',')]
 			retrievedDict[row[0]] = float(row[1])
-
+	#print retrievedDict
 """
 Reads the training data file and assigns the given rating as
 the default rating for the given users. Then calculates the average
@@ -80,8 +80,9 @@ def writeUsers():
 
 def ProcessProbe():
   for line in probe:
-    if line.fine(':') != -1:
+    if line.find(':') != -1:
       movie = line[:-2]
       findRatings(movie)
     else:
-      probeAnswers.write(str(retrievedDict[line:-1])+"\n")
+      #print str(line.strip())
+      probeAnswers.write(str(retrievedDict[line.strip()])+"\n")
