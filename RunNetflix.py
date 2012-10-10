@@ -27,9 +27,10 @@ from Netflix import CreateCache, Netflix
 
 movieRatings = 'defMovieRatings.txt'
 userRatings = 'defUserRatings.txt'
+ratingsByYear = 'movieRatingsByYear.txt'
 # ----
 # main
 # ----
 
-CreateCache(userRatings,movieRatings)
+CreateCache(userRatings,movieRatings,ratingsByYear)
 Netflix(sys.stdin, sys.stdout)

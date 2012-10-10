@@ -9,18 +9,20 @@
 import math
 
 users = {}
-movies = [0]*17770
+movies = [[0,0]]*17770
 avgRating = 0.0
 ratings = []
 retrievedRatings = []
 retrievedDict = {}
-
+ratingsByYear = {}
+moviesByYear = {}
 """
 creates the cache for predicting the data from the stored 
 """
-def CreateCache(userFile, movieFile):
+def CreateCache(userFile, movieFile, yearRatings, movieInfo):
   userRatings = open(userFile,'r')
   movieRatings = open(movieFile, 'r')
+  ratingsByYear = open(yearRatings,'r')
   for line in userRatings:
     row = [x.strip() for x in line.split(',')]
     users[row[0]] = float(row[1])
@@ -30,7 +32,11 @@ def CreateCache(userFile, movieFile):
       avgRating = float(line.lstrip(':'))
     else: 
       row = [x.strip() for x in line.split(',')]
-      movies[int(row[0])-1] = float(row[1])
+      movies[int(row[0])-1][0] = float(row[1])
+      movies[int(row[0])-1][1] = int(row[2])
+  for line in ratingsByYear:
+    row = [x.strip() for x in line.split(',')]
+    #do something
 
 """
 method for predicting the data
@@ -44,8 +50,8 @@ def PredictRating(user, movie):
     userRating = users[user]
   else:
     userRating = avgRating
-  movieRating = movies[movie-1]
-  return float((movieRating + userRating) / 2.0)
+    movieRating = movies[movie-1][0]
+  return round(float((movieRating + userRating) / 2.0))
 """
 method that process input txt file and calculate predictions
 """
