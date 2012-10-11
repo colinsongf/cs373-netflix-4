@@ -77,13 +77,10 @@ def PredictRating(user, movie):
   #else:
   #  userRating = round(userRating, 1)'''
   return userRating #userRating
-  '''else:    
-    userRating = movieRating
-    return userRating'''
     #userRating = midpoint(userRating, movieRating)
   #movieRating = movies[movie-1][0]
   #return float((movieRating + averageYearRating + userRating) / 3.0)
-  #return 0.0
+  #return 0.0'''
 """
 method that process input txt file and calculate predictions
 """
