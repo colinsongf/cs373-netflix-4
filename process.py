@@ -22,11 +22,8 @@ movieYears = {}
 
 
 
-def findRatings(movieTitle, user):
-  fileName = "mv_00"+"0"*(5-movieTitle.__len__())+movieTitle+".txt"
-  fileDir = "/u/downing/cs/netflix/training_set/"+fileName
+def findRatings(fileDir, user):  
   trainingFile = open(fileDir,'r')
-  print "finding ratings for: "+fileName+"\n"
   for line in trainingFile:
     if line.find(':') == -1:
       row = [x.strip() for x in line.split(',')]
@@ -90,12 +87,17 @@ def writeUsers():
     users.write(str(i)+","+str(avg)+"\n")
 
 def ProcessProbe():
+  fileName =""
+  fileDir =""
   for line in probe:
     if line.find(':') != -1:
       movie = line[:-2]
       #findRatings(movie)
+      fileName = "mv_00"+"0"*(5-movie.__len__())+movie+".txt"
+      fileDir = "/u/downing/cs/netflix/training_set/"+fileName
+      print "finding ratings for: "+fileName+"\n"
     else:
-      findRatings(movie,line.strip())
+      findRatings(fileDir,line.strip())
       #print str(line.strip())
       probeAnswers.write(str(retrievedDict[line.strip()])+"\n")
       
