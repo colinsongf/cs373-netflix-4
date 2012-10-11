@@ -9,17 +9,17 @@ Last Name: Willis
 EID: now73
 E-mail: newmanwillis@gmail.com
 Estimated number of hours: 30
-Actual    number of hours: 
+Actual    number of hours: 40
  
 Partner First Name: Darby
 Partner Last Name: Perez
 Partner EID: djp589
 Partner E-mail: darby.perez@gmail.com
 Partner Estimated number of hours: 20
-Partner Actual    number of hours:
+Partner Actual    number of hours: 40
 
-Turnin CS Username:
-GitHub ID: newmanwillis
+Turnin CS Username: darbs
+GitHub ID: darbs
 GitHub Repository Name: cs373-netflix
 
 Comments:

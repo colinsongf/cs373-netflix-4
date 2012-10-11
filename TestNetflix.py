@@ -25,7 +25,7 @@ To test the program:
 import StringIO
 import unittest
 
-from Netflix import CreateCache, PredictRating, Netflix, getUsers, getMovies 
+from Netflix import CreateCache, PredictRating, Netflix, getUsers, getMovies, getRatings 
 
 # -----------
 # TestNetflix
@@ -38,7 +38,7 @@ class TestNetflix (unittest.TestCase) :
     # ----
     
     def test_CreateCache_1(self):
-        CreateCache('zUserTest1.txt','zMovieTest1.txt')
+        CreateCache('ZU1.txt', 'ZM1.txt')
         testUsers = getUsers()
         prototypeMovies = getMovies()
         testMovies = [0] * 2
@@ -51,30 +51,30 @@ class TestNetflix (unittest.TestCase) :
         self.assert_(testMovies == actualMovies)
         
     def test_CreateCache_2(self):
-        CreateCache('zUserTest2.txt','zMovieTest2.txt')
+        CreateCache('ZU2.txt', 'ZM2.txt')
         testUsers = getUsers()
         prototypeMovies = getMovies()
         testMovies = [0] * 4
-        testMovies[0] = prototypeMovies[0]
-        testMovies[1] = prototypeMovies[1]
-        testMovies[2] = prototypeMovies[2]
-        testMovies[3] = prototypeMovies[3]
-        actualUsers = {'1' : 5.0, '10034': 4.15, '2': 3.0, '8901267': 3.79}
-        actualMovies = [3.78, 2.5, 4.19, 3.98]
+        testMovies[0] = round(prototypeMovies[0])
+        testMovies[1] = round(prototypeMovies[1])
+        testMovies[2] = round(prototypeMovies[2])
+        testMovies[3] = round(prototypeMovies[3])
+        actualUsers = {'1' : 5.0, '10034': 4.0, '2': 3.0, '8901267': 3.0}
+        actualMovies = [4.0, 3.0, 4.0, 4.0]
         self.assert_(testUsers == actualUsers)
         self.assert_(testMovies == actualMovies)
         
     def test_CreateCache_3(self):
-        CreateCache('zUserTest3.txt','zMovieTest3.txt')
+        CreateCache('ZU3.txt', 'ZM3.txt')
         testUsers = getUsers()
         prototypeMovies = getMovies()
         testMovies = [0] * 4
-        testMovies[0] = prototypeMovies[0]
-        testMovies[1] = prototypeMovies[1]
-        testMovies[2] = prototypeMovies[2]
-        testMovies[3] = prototypeMovies[3]
-        actualUsers = {'1' : 5.0, '10034': 4.15, '2': 3.0, '8901267': 3.79}
-        actualMovies = [3.78, 2.5, 4.19, 3.98]
+        testMovies[0] = round(prototypeMovies[0])
+        testMovies[1] = round(prototypeMovies[1])
+        testMovies[2] = round(prototypeMovies[2])
+        testMovies[3] = round(prototypeMovies[3])
+        actualUsers = {'1' : 5.0, '10034': 4.0, '2': 3.0, '8901267': 3.0}
+        actualMovies = [4.0, 3.0, 4.0, 4.0]
         self.assert_(testUsers == actualUsers)
         self.assert_(testMovies == actualMovies)
 
@@ -85,37 +85,49 @@ class TestNetflix (unittest.TestCase) :
     def test_PredictRating_1(self):
         userID = '1'
         movieID = 2
-        testRating = PredictRating(userID, movieID)
-        actualRating = 3.75;
+        testRating = round(PredictRating(userID, movieID), 2)
+        actualRating = 3.46;
         self.assert_(testRating == actualRating)
         
     def test_PredictRating_2(self):
         userID = '10034'
         movieID = 3
-        testRating = PredictRating(userID, movieID)
-        actualRating = 4.17;
+        testRating = round(PredictRating(userID, movieID), 2)
+        actualRating = 4.64;
         self.assert_(testRating == actualRating)
         
     def test_PredictRating_3(self):
         userID = '17'
         movieID = 1
-        testRating = PredictRating(userID, movieID)
-        print testRating
-        actualRating = 1.89; #because of so many unrated movies due to 17770 movies total, avgrating = 0
+        testRating = round(PredictRating(userID, movieID), 2)
+        actualRating = 0.0;
         self.assert_(testRating == actualRating)
        
     # ----
     # Netflix
     # ----        
-    ''' 
+    
     def test_Netflix_1(self):
-        
-        b = Netflix()
-    '''    
-    # ----
-    # RMSE
-    # ----  
-   
+      r = StringIO.StringIO("1:\n1\n87")
+      w = StringIO.StringIO() 
+      Netflix(r, w)
+      actualRatings = [5, 0]
+      self.assert_(getRatings() == actualRatings)
+
+    def test_Netflix_2(self):
+      r = StringIO.StringIO("2:\n1\n999232")
+      w = StringIO.StringIO() 
+      Netflix(r, w)
+      actualRatings = [5, 0 , 3.4608600264852694, 0]
+      self.assert_(getRatings() == actualRatings)
+         
+    def test_Netflix_3(self):
+      r = StringIO.StringIO("4:\n2")
+      w = StringIO.StringIO() 
+      Netflix(r, w)
+      actualRatings = [5, 0 , 3.4608600264852694, 0, 0]
+      self.assert_(getRatings() == actualRatings)
+  
 
 # ----
 # main
