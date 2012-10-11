@@ -41,12 +41,8 @@ def CreateCache(userFile, movieFile, yearRatings):
   for line in ratingsByYear:
     row = [x.strip() for x in line.split(',')]
     yearlyRatings[row[0]] = float(row[1].strip())
-  #print avgRating
-  #print yearlyRatings
 
 def getYearRating(movie):
-  #print yearlyRatings
-  #print movies[movie-1][1]
   movieYear = movies[movie-1][1]
   if(movieYear != 'NULL'):
     year = int(movieYear) 
@@ -62,35 +58,22 @@ average rating and the users average rating.
 """
 def PredictRating(user, movie):
   userRating = 0.0
+  rating = 0.0
   movieRating = movies[movie-1][0]
-  averageYearRating = getYearRating(movie)
+  #averageYearRating = getYearRating(movie)
   if user in users:
-    #userRating = users[user]
-    #userOffset = userRating*.9
-    #movieOffset = movieRating*.1
-    #userRating = avgRating + userRating - movieRating
-    userRating = userRating*.9 + users[user]*.1
-    #userRating = 0.8*userRating+0.2*movieRating
-    #userRating = float((movieRating +userRating) / 2.0)
-    
-    if (userRating < avgRating < movieRating):
-      userRating += (movieRating - avgRating)
-      #userRating = 0.3*userRating+0.7*movieRating
-      #userRating = round(userRating)
-      return userRating
-    elif (userRating > avgRating > movieRating):
-      userRating -= (avgRating - movieRating)
-      #userRating = 0.3*userRating+0.7*movieRating
-      #userRating = round(userRating)
-      return userRating
-    return userRating
+    userRating = users[user]
+    userOffset = avgRating/userRating
+    movieOffset = avgRating/movieRating
+    #rating = avgRating + userRating*userOffset - movieRating*movieOffset
+    rating = avgRating + userRating**(movieRating/userRating)
   else:    
     userRating = movieRating
-    return userRating
+    rating = userRating
     #userRating = midpoint(userRating, movieRating)
   #movieRating = movies[movie-1][0]
   #return float((movieRating + averageYearRating + userRating) / 3.0)
-  #return 0.0
+  return rating
 """
 method that process input txt file and calculate predictions
 """
