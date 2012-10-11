@@ -25,12 +25,12 @@ import math
 
 from Netflix import CreateCache, Netflix
 
-movieRatings = 'defMovieRatings.txt'
-userRatings = 'defUserRatings.txt'
-ratingsByYear = 'movieRatingsByYear.txt'
+movieRatings = 'caches/defMovieRatings.txt'
+userRatings = 'caches/defUserRatings.txt'
+
 # ----
 # main
 # ----
 
-CreateCache(userRatings,movieRatings,ratingsByYear)
+CreateCache(userRatings,movieRatings)
 Netflix(sys.stdin, sys.stdout)

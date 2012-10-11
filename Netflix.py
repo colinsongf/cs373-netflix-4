@@ -19,11 +19,10 @@ moviesByYear = {}
 """
 creates the cache for predicting the data from the stored 
 """
-def CreateCache(userFile, movieFile, yearRatings):
+def CreateCache(userFile, movieFile):
   global avgRating
   userRatings = open(userFile,'r')
   movieRatings = open(movieFile, 'r')
-  ratingsByYear = open(yearRatings,'r')
   for line in userRatings:
     row = [x.strip() for x in line.split(',')]
     users[row[0]] = float(row[1])
@@ -33,23 +32,8 @@ def CreateCache(userFile, movieFile, yearRatings):
       avgRating = float(line.lstrip(':'))
     else: 
       row = [x.strip() for x in line.split(',')]
-      #print movies
-      #print row
       movies[int(row[0])-1][0] = float(row[1])
       movies[int(row[0])-1][1] = row[2]
-  #print movies
-  for line in ratingsByYear:
-    row = [x.strip() for x in line.split(',')]
-    yearlyRatings[row[0]] = float(row[1].strip())
-
-def getYearRating(movie):
-  movieYear = movies[movie-1][1]
-  if(movieYear != 'NULL'):
-    year = int(movieYear) 
-    yearInterval = year-(year%5)
-    return yearlyRatings[str(yearInterval)]
-  else:
-    return 0.0
 
 """
 method for predicting the data
@@ -60,7 +44,6 @@ def PredictRating(user, movie):
   userRating = 0.0
   prediction = 0.0
   movieRating = movies[movie-1][0]
-  #averageYearRating = getYearRating(movie)
   if user in users:
     userRating = users[user]
     prediction = avgRating + (movieRating - avgRating) +(userRating - movieRating)
@@ -83,7 +66,6 @@ def Netflix(r,w):
       results += line
     else:
       rating = PredictRating(line[:-1],movie)
-      #results += str(movies[movie-1][0])+" "+str(rating)+" "+str(avgRating)+"\n"
       results += str(rating)+"\n"
       ratings.append(rating)
   print results.strip()
