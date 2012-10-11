@@ -58,26 +58,18 @@ average rating and the users average rating.
 """
 def PredictRating(user, movie):
   userRating = 0.0
-  rating = 0.0
+  prediction = 0.0
   movieRating = movies[movie-1][0]
-  averageYearRating = getYearRating(movie)
-  #if user in users:
-  #userRating = users[user] * .9 + movieRating * .1 #users[user]
-  userRating = users[user]
-  userDiff = userRating - avgRating
-  movieDiff = movieRating - avgRating
-  userRating = avgRating + userDiff + movieDiff * 1.4
-  if(userRating > 5):
-    userRating = 5
-  elif(userRating < 1):
-    userRating = 1
-  #else:
-  #  userRating = round(userRating, 1)'''
-  return userRating #userRating
-    #userRating = midpoint(userRating, movieRating)
-  #movieRating = movies[movie-1][0]
-  #return float((movieRating + averageYearRating + userRating) / 3.0)
-  #return 0.0'''
+  #averageYearRating = getYearRating(movie)
+  if user in users:
+    userRating = users[user]
+    prediction = avgRating + (movieRating - avgRating) +(userRating - movieRating)
+    prediction *= (movieRating/avgRating)
+    if(prediction > 5):
+      prediction = 5
+    elif(prediction < 0):
+      prediction = 0
+  return prediction
 
 """
 method that process input txt file and calculate predictions
