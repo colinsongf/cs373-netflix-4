@@ -9,7 +9,7 @@
 import math
 
 users = {}
-movies = [[0,0] for v in xrange(17770)]
+movies = [[0] for v in xrange(17770)]
 avgRating = 0.0
 ratings = []
 retrievedRatings = []
@@ -32,8 +32,8 @@ def CreateCache(userFile, movieFile):
       avgRating = float(line.lstrip(':'))
     else: 
       row = [x.strip() for x in line.split(',')]
-      movies[int(row[0])-1][0] = float(row[1])
-      movies[int(row[0])-1][1] = row[2]
+      movies[int(row[0])-1] = float(row[1])
+      #movies[int(row[0])-1][1] = row[2]
 
 """
 method for predicting the data
@@ -43,7 +43,7 @@ average rating and the users average rating.
 def PredictRating(user, movie):
   userRating = 0.0
   prediction = 0.0
-  movieRating = movies[movie-1][0]
+  movieRating = movies[movie-1]
   if user in users:
     userRating = users[user]
     prediction = avgRating + (movieRating - avgRating) +(userRating - movieRating)
@@ -70,9 +70,12 @@ def Netflix(r,w):
       ratings.append(rating)
   print results.strip()
 
-#simple functions to help with testing  
+#simple functions to help with testing
+def getRatings():
+  return ratings
+  
 def getMovies():
-    return movies
+  return movies
     
 def getUsers(): 
-    return users     
+  return users     
