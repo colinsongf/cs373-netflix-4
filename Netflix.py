@@ -19,7 +19,7 @@ moviesByYear = {}
 """
 creates the cache for predicting the data from the stored 
 """
-def CreateCache(userFile, movieFile, yearRatings, movieInfo):
+def CreateCache(userFile, movieFile, yearRatings):
   userRatings = open(userFile,'r')
   movieRatings = open(movieFile, 'r')
   ratingsByYear = open(yearRatings,'r')
@@ -50,7 +50,7 @@ def PredictRating(user, movie):
     userRating = users[user]
   else:
     userRating = avgRating
-    movieRating = movies[movie-1][0]
+  movieRating = movies[movie-1][0]
   return round(float((movieRating + userRating) / 2.0))
 """
 method that process input txt file and calculate predictions
