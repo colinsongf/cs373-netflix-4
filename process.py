@@ -63,7 +63,7 @@ def ProcessTraining():
           totalRatings += int(row[1]) 
       avgRating = totalRatings/numOfRatings
       totalAverage += avgRating
-      ratings.write(movieId.rstrip(':')+","+str(avgRating)+","+movieDict[movieId.rstrip(':')]"\n")
+      ratings.write(movieId.rstrip(':')+","+str(avgRating)+","+movieDict[movieId.rstrip(':')]+"\n")
   totalAverage /= 17770
   ratings.write(':'+str(totalAverage));
   writeUsers()

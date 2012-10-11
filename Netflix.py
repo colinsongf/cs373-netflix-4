@@ -9,17 +9,21 @@
 import math
 
 users = {}
-movies = [[0,0]]*17770
+movies = [[0,0] for v in xrange(17770)]
 avgRating = 0.0
 ratings = []
 retrievedRatings = []
 retrievedDict = {}
-ratingsByYear = {}
+yearlyRatings = {}
 moviesByYear = {}
 """
 creates the cache for predicting the data from the stored 
 """
 def CreateCache(userFile, movieFile, yearRatings):
+<<<<<<< HEAD
+=======
+  global avgRating
+>>>>>>> 9fc6e1de6d8086e0007e4f6f90dc0400641e59be
   userRatings = open(userFile,'r')
   movieRatings = open(movieFile, 'r')
   ratingsByYear = open(yearRatings,'r')
@@ -32,11 +36,27 @@ def CreateCache(userFile, movieFile, yearRatings):
       avgRating = float(line.lstrip(':'))
     else: 
       row = [x.strip() for x in line.split(',')]
+      #print movies
+      #print row
       movies[int(row[0])-1][0] = float(row[1])
-      movies[int(row[0])-1][1] = int(row[2])
+      movies[int(row[0])-1][1] = row[2]
+  #print movies
   for line in ratingsByYear:
     row = [x.strip() for x in line.split(',')]
-    #do something
+    yearlyRatings[row[0]] = float(row[1].strip())
+  #print avgRating
+  #print yearlyRatings
+
+def getYearRating(movie):
+  #print yearlyRatings
+  #print movies[movie-1][1]
+  movieYear = movies[movie-1][1]
+  if(movieYear != 'NULL'):
+    year = int(movieYear) 
+    yearInterval = year-(year%5)
+    return yearlyRatings[str(yearInterval)]
+  else:
+    return 0.0
 
 """
 method for predicting the data
@@ -45,13 +65,43 @@ average rating and the users average rating.
 """
 def PredictRating(user, movie):
   userRating = 0.0
-  movieRating = 0.0
+  movieRating = movies[movie-1][0]
+  averageYearRating = getYearRating(movie)
   if user in users:
+<<<<<<< HEAD
     userRating = users[user]
   else:
     userRating = avgRating
   movieRating = movies[movie-1][0]
   return round(float((movieRating + userRating) / 2.0))
+=======
+    #userRating = users[user]
+    #userOffset = userRating*.9
+    #movieOffset = movieRating*.1
+    #userRating = avgRating + userRating - movieRating
+    userRating = userRating*.9 + users[user]*.1
+    #userRating = 0.8*userRating+0.2*movieRating
+    #userRating = float((movieRating +userRating) / 2.0)
+    
+    if (userRating < avgRating < movieRating):
+      userRating += (movieRating - avgRating)
+      #userRating = 0.3*userRating+0.7*movieRating
+      #userRating = round(userRating)
+      return userRating
+    elif (userRating > avgRating > movieRating):
+      userRating -= (avgRating - movieRating)
+      #userRating = 0.3*userRating+0.7*movieRating
+      #userRating = round(userRating)
+      return userRating
+    return userRating
+  else:    
+    userRating = movieRating
+    return userRating
+    #userRating = midpoint(userRating, movieRating)
+  #movieRating = movies[movie-1][0]
+  #return float((movieRating + averageYearRating + userRating) / 3.0)
+  #return 0.0
+>>>>>>> 9fc6e1de6d8086e0007e4f6f90dc0400641e59be
 """
 method that process input txt file and calculate predictions
 """
@@ -64,6 +114,7 @@ def Netflix(r,w):
       results += line
     else:
       rating = PredictRating(line[:-1],movie)
+      #results += str(movies[movie-1][0])+" "+str(rating)+" "+str(avgRating)+"\n"
       results += str(rating)+"\n"
       ratings.append(rating)
   print results.strip()
