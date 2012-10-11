@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module Netflix</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>Netflix</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/v/filer4b/v38q001/darbs/cs373/cs373-netflix/Netflix.py">/v/filer4b/v38q001/darbs/cs373/cs373-netflix/Netflix.py</a></font></td></tr></table>
+    <p><tt>#&nbsp;---------------------------<br>
+#&nbsp;projects/Netflix/Netflix.py<br>
+#&nbsp;Copyright&nbsp;(C)&nbsp;2012<br>
+#&nbsp;Darby&nbsp;Perez&nbsp;&amp;&nbsp;Newman&nbsp;Willis<br>
+#&nbsp;---------------------------</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="math.html">math</a><br>
+</td><td width="25%" valign=top><a href="re.html">re</a><br>
+</td><td width="25%" valign=top><a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-CreateCache"><strong>CreateCache</strong></a>(userFile, movieFile)</dt><dd><tt>###<br>
+#&nbsp;creates&nbsp;the&nbsp;cache&nbsp;for&nbsp;predicting&nbsp;the&nbsp;data&nbsp;from&nbsp;the&nbsp;stored<br>
+###</tt></dd></dl>
+ <dl><dt><a name="-Netflix"><strong>Netflix</strong></a>(r, w)</dt><dd><tt>###<br>
+#&nbsp;method&nbsp;that&nbsp;process&nbsp;input&nbsp;txt&nbsp;file&nbsp;and&nbsp;calculate&nbsp;predictions<br>
+###</tt></dd></dl>
+ <dl><dt><a name="-PredictRating"><strong>PredictRating</strong></a>(user, movie)</dt><dd><tt>###<br>
+#&nbsp;method&nbsp;for&nbsp;predicting&nbsp;the&nbsp;data<br>
+#&nbsp;currently&nbsp;implements&nbsp;a&nbsp;generic&nbsp;way&nbsp;to&nbsp;predict&nbsp;rating.&nbsp;Averages&nbsp;the&nbsp;movies<br>
+#&nbsp;average&nbsp;rating&nbsp;and&nbsp;the&nbsp;users&nbsp;average&nbsp;rating.<br>
+###</tt></dd></dl>
+ <dl><dt><a name="-getMovies"><strong>getMovies</strong></a>()</dt><dd><tt>#&nbsp;simple&nbsp;functions&nbsp;to&nbsp;help&nbsp;with&nbsp;testing</tt></dd></dl>
+ <dl><dt><a name="-getUsers"><strong>getUsers</strong></a>()</dt></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>avgRating</strong> = 0.0<br>
+<strong>movies</strong> = [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], ...]<br>
+<strong>moviesByYear</strong> = {}<br>
+<strong>ratings</strong> = []<br>
+<strong>retrievedDict</strong> = {}<br>
+<strong>retrievedRatings</strong> = []<br>
+<strong>users</strong> = {}<br>
+<strong>v</strong> = 17769<br>
+<strong>yearlyRatings</strong> = {}</td></tr></table>
+</body></html>

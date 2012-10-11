@@ -18,9 +18,10 @@ retrievedRatings = []
 retrievedDict = {}
 yearlyRatings = {}
 moviesByYear = {}
-"""
-creates the cache for predicting the data from the stored
-"""
+
+###
+# creates the cache for predicting the data from the stored
+###
 def CreateCache(userFile, movieFile):
   global avgRating
   userRatings = open(userFile,'r')
@@ -37,11 +38,11 @@ def CreateCache(userFile, movieFile):
       movies[int(row[0])-1][0] = float(row[1])
       movies[int(row[0])-1][1] = row[2]
 
-"""
-method for predicting the data
-currently implements a generic way to predict rating. Averages the movies
-average rating and the users average rating.
-"""
+###
+# method for predicting the data
+# currently implements a generic way to predict rating. Averages the movies
+# average rating and the users average rating.
+###
 def PredictRating(user, movie):
   userRating = 0.0
   prediction = 0.0
@@ -56,9 +57,9 @@ def PredictRating(user, movie):
       prediction = 0
   return prediction
 
-"""
-method that process input txt file and calculate predictions
-"""
+###
+# method that process input txt file and calculate predictions
+###
 def Netflix(r,w):
   movie = 0
   results = ""
@@ -77,7 +78,7 @@ def Netflix(r,w):
       	results +="\n" 
   print results
 
-#simple functions to help with testing
+# simple functions to help with testing
 def getMovies():
     return movies
     
