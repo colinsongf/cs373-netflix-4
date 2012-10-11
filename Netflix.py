@@ -64,29 +64,22 @@ def PredictRating(user, movie):
   userRating = 0.0
   movieRating = movies[movie-1][0]
   averageYearRating = getYearRating(movie)
-  if user in users:
-    #userRating = users[user]
-    #userOffset = userRating*.9
-    #movieOffset = movieRating*.1
-    #userRating = avgRating + userRating - movieRating
-    userRating = userRating*.9 + users[user]*.1
-    #userRating = 0.8*userRating+0.2*movieRating
-    #userRating = float((movieRating +userRating) / 2.0)
-    
-    if (userRating < avgRating < movieRating):
-      userRating += (movieRating - avgRating)
-      #userRating = 0.3*userRating+0.7*movieRating
-      #userRating = round(userRating)
-      return userRating
-    elif (userRating > avgRating > movieRating):
-      userRating -= (avgRating - movieRating)
-      #userRating = 0.3*userRating+0.7*movieRating
-      #userRating = round(userRating)
-      return userRating
-    return userRating
-  else:    
+  #if user in users:
+  #userRating = users[user] * .9 + movieRating * .1 #users[user]
+  userRating = users[user]
+  userDiff = userRating - avgRating
+  movieDiff = movieRating - avgRating
+  userRating = avgRating + userDiff + movieDiff * 1.4
+  if(userRating > 5):
+    userRating = 5
+  elif(userRating < 1):
+    userRating = 1
+  #else:
+  #  userRating = round(userRating, 1)'''
+  return userRating #userRating
+  '''else:    
     userRating = movieRating
-    return userRating
+    return userRating'''
     #userRating = midpoint(userRating, movieRating)
   #movieRating = movies[movie-1][0]
   #return float((movieRating + averageYearRating + userRating) / 3.0)
