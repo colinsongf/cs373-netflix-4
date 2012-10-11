@@ -7,6 +7,8 @@
 # ---------------------------
 
 import math
+import sys
+import re
 
 users = {}
 movies = [[0] for v in xrange(17770)]
@@ -17,7 +19,7 @@ retrievedDict = {}
 yearlyRatings = {}
 moviesByYear = {}
 """
-creates the cache for predicting the data from the stored 
+creates the cache for predicting the data from the stored
 """
 def CreateCache(userFile, movieFile):
   global avgRating
@@ -28,9 +30,9 @@ def CreateCache(userFile, movieFile):
     users[row[0]] = float(row[1])
   for line in movieRatings:
     if line.find(':') != -1:
-      line.strip() 
+      line.strip()
       avgRating = float(line.lstrip(':'))
-    else: 
+    else:
       row = [x.strip() for x in line.split(',')]
       movies[int(row[0])-1] = float(row[1])
       #movies[int(row[0])-1][1] = row[2]
@@ -61,14 +63,19 @@ def Netflix(r,w):
   movie = 0
   results = ""
   for line in r:
+    #print line.strip()
     if line.find(':') != -1:
-      movie = int(line[:-2])
+      #line = re.search(r'\d\.\d*E[+-]\d+',line[0]).group
+      movie = int(line[:-2].strip('\xef\xbb\xbf\r\n: '))
       results += line
     else:
-      rating = PredictRating(line[:-1],movie)
-      results += str(rating)+"\n"
-      ratings.append(rating)
-  print results.strip()
+      if line.strip() != "":
+        rating = PredictRating(line[:-1],movie)
+        results += str(rating)+"\n"
+        ratings.append(rating)
+      else:
+      	results +="\n" 
+  print results
 
 #simple functions to help with testing
 def getRatings():
@@ -79,3 +86,4 @@ def getMovies():
     
 def getUsers(): 
   return users     
+

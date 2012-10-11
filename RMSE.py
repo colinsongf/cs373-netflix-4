@@ -21,7 +21,7 @@ def sqre_diff (x, y) :
 
 def ReadOutput(results):
   for line in results:
-    if line.find(':') == -1:
+    if line.find(':') == -1 and line.strip() != "":
       ratings.append(float(line[:-1].strip()))
   print str(RMSE(open("probeAnswers.txt"),ratings))
 
