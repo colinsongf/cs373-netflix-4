@@ -20,10 +20,7 @@ moviesByYear = {}
 creates the cache for predicting the data from the stored 
 """
 def CreateCache(userFile, movieFile, yearRatings):
-<<<<<<< HEAD
-=======
   global avgRating
->>>>>>> 9fc6e1de6d8086e0007e4f6f90dc0400641e59be
   userRatings = open(userFile,'r')
   movieRatings = open(movieFile, 'r')
   ratingsByYear = open(yearRatings,'r')
@@ -68,14 +65,15 @@ def PredictRating(user, movie):
   movieRating = movies[movie-1][0]
   averageYearRating = getYearRating(movie)
   if user in users:
-<<<<<<< HEAD
     userRating = users[user]
+    rating = UserRating
+    
   else:
-    userRating = avgRating
+    rating = avgRating
   movieRating = movies[movie-1][0]
-  return round(float((movieRating + userRating) / 2.0))
-=======
-    #userRating = users[user]
+  return rating
+  #return round(float((movieRating + userRating) / 2.0))
+    '''#userRating = users[user]
     #userOffset = userRating*.9
     #movieOffset = movieRating*.1
     #userRating = avgRating + userRating - movieRating
@@ -100,8 +98,7 @@ def PredictRating(user, movie):
     #userRating = midpoint(userRating, movieRating)
   #movieRating = movies[movie-1][0]
   #return float((movieRating + averageYearRating + userRating) / 3.0)
-  #return 0.0
->>>>>>> 9fc6e1de6d8086e0007e4f6f90dc0400641e59be
+  #return 0.0'''
 """
 method that process input txt file and calculate predictions
 """
